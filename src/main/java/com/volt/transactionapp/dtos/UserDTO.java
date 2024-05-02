@@ -1,15 +1,11 @@
-package com.volt.transactionapp.models.users;
+package com.volt.transactionapp.dtos;
 
-import com.volt.transactionapp.dtos.UserDTO;
-import jakarta.persistence.*;
+import com.volt.transactionapp.models.users.User;
+import com.volt.transactionapp.models.users.UserType;
 
 import java.math.BigDecimal;
 
-@Entity(name = "tb_users")
-@Table(name = "tb_users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private Long id;
     private String firstName;
     private String lastName;
@@ -17,21 +13,9 @@ public class User {
     private String email;
     private String password;
     private BigDecimal amount;
-    @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    public User() {
-    }
-    public User(UserDTO dto) {
-        this.firstName = dto.getFirstName();
-        this.lastName = dto.getLastName();
-        this.document = dto.getDocument();
-        this.email = dto.getEmail();
-        this.password = dto.getPassword();
-        this.amount = dto.getAmount();
-        this.userType = dto.getUserType();
-    }
-    public User(String firstName, String lastName, String document, String email, String password, BigDecimal amount, UserType userType) {
+    public UserDTO(String firstName, String lastName, String document, String email, String password, BigDecimal amount, UserType userType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.document = document;
@@ -39,6 +23,28 @@ public class User {
         this.password = password;
         this.amount = amount;
         this.userType = userType;
+    }
+    public UserDTO(User user){
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.document = user.getDocument();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.amount = user.getAmount();
+        this.userType = user.getUserType();
+    }
+    public UserDTO(Long id, User user){
+        this.id = id;
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.document = user.getDocument();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.amount = user.getAmount();
+        this.userType = user.getUserType();
+    }
+    public UserDTO() {
     }
 
     public Long getId() {
