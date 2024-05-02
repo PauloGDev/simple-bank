@@ -1,5 +1,6 @@
 package com.volt.transactionapp.models.transactions;
 
+import com.volt.transactionapp.dtos.TransactionDTO;
 import com.volt.transactionapp.models.users.User;
 import jakarta.persistence.*;
 
@@ -37,6 +38,14 @@ public class Transaction {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getSender() {
