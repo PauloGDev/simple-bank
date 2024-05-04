@@ -1,7 +1,6 @@
 package com.volt.transactionapp.controllers;
 
 import com.volt.transactionapp.dtos.UserDTO;
-import com.volt.transactionapp.models.transactions.Transaction;
 import com.volt.transactionapp.models.users.User;
 import com.volt.transactionapp.services.TransactionService;
 import com.volt.transactionapp.services.UserService;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
