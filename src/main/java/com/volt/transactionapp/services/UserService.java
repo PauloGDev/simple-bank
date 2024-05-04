@@ -6,6 +6,7 @@ import com.volt.transactionapp.models.users.UserType;
 import com.volt.transactionapp.repositories.UserRepository;
 import com.volt.transactionapp.services.exceptions.generalException.ResourceNotFoundException;
 import com.volt.transactionapp.services.exceptions.transactionException.InvalidTransactionException;
+import com.volt.transactionapp.services.exceptions.userException.DataAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class UserService {
                "User with id: " + id + " not found"));
     }
     public void saveUser(UserDTO dto){
+        checkUser(dto.getDocument(), dto.getEmail());
         User user = new User(dto);
         this.repository.save(user);
     }
@@ -57,5 +59,17 @@ public class UserService {
         user.setUserType(dto.getUserType());
         user.setDocument(dto.getDocument());
         return new UserDTO(user.getId(), user);
+    }
+
+    private void checkUser(String document, String email){
+        List<User> users = this.repository.findAll();
+        for(User user : users){
+            if(user.getDocument().equalsIgnoreCase(document)){
+                throw new DataAlreadyExistsException("Document already exists");
+            }
+            if(user.getEmail().equalsIgnoreCase(email)){
+                throw new DataAlreadyExistsException("Email already exists");
+            }
+        }
     }
 }
